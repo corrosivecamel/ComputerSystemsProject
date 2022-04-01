@@ -1,0 +1,35 @@
+Scanning dependencies of target lmsm_lib
+[  4%] Building C object CMakeFiles/lmsm_lib.dir/src/main.c.o
+[  9%] Building C object CMakeFiles/lmsm_lib.dir/src/lmsm.c.o
+[ 14%] Building C object CMakeFiles/lmsm_lib.dir/src/assembler.c.o
+[ 19%] Building C object CMakeFiles/lmsm_lib.dir/src/repl.c.o
+[ 23%] Linking C static library liblmsm_lib.a
+[ 23%] Built target lmsm_lib
+Scanning dependencies of target lmsm
+[ 28%] Building C object CMakeFiles/lmsm.dir/src/main.c.o
+[ 33%] Building C object CMakeFiles/lmsm.dir/src/lmsm.c.o
+[ 38%] Building C object CMakeFiles/lmsm.dir/src/assembler.c.o
+[ 42%] Building C object CMakeFiles/lmsm.dir/src/repl.c.o
+[ 47%] Linking C executable lmsm
+[ 47%] Built target lmsm
+Scanning dependencies of target gtest
+[ 52%] Building CXX object googletest/lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+[ 57%] Linking CXX static library ../../../lib/libgtest.a
+[ 57%] Built target gtest
+Scanning dependencies of target gtest_main
+[ 61%] Building CXX object googletest/lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
+[ 66%] Linking CXX static library ../../../lib/libgtest_main.a
+[ 66%] Built target gtest_main
+Scanning dependencies of target lmsm_tests
+[ 71%] Building CXX object googletest/CMakeFiles/lmsm_tests.dir/assembler.cpp.o
+[ 76%] Building CXX object googletest/CMakeFiles/lmsm_tests.dir/lmsm.cpp.o
+[ 80%] Linking CXX executable lmsm_tests
+[ 80%] Built target lmsm_tests
+Scanning dependencies of target gmock
+[ 85%] Building CXX object googletest/lib/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
+[ 90%] Linking CXX static library ../../../lib/libgmock.a
+[ 90%] Built target gmock
+Scanning dependencies of target gmock_main
+[ 95%] Building CXX object googletest/lib/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
+[100%] Linking CXX static library ../../../lib/libgmock_main.a
+[100%] Built target gmock_main
