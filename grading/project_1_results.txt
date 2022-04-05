@@ -1,7 +1,20 @@
-[ 23%] Built target lmsm_lib
-[ 47%] Built target lmsm
-[ 57%] Built target gtest
-[ 66%] Built target gtest_main
-[ 80%] Built target lmsm_tests
-[ 90%] Built target gmock
+Scanning dependencies of target lmsm_lib
+[  4%] Building C object CMakeFiles/lmsm_lib.dir/src/lmsm.c.o
+[  8%] Building C object CMakeFiles/lmsm_lib.dir/src/repl.c.o
+[ 13%] Linking C static library liblmsm_lib.a
+[ 21%] Built target lmsm_lib
+Scanning dependencies of target lmsm
+[ 26%] Building C object CMakeFiles/lmsm.dir/src/lmsm.c.o
+[ 30%] Building C object CMakeFiles/lmsm.dir/src/repl.c.o
+[ 34%] Linking C executable lmsm
+[ 43%] Built target lmsm
+[ 52%] Built target gtest
+[ 60%] Built target gtest_main
+[ 65%] Linking CXX executable lmsm_tests
+[ 73%] Built target lmsm_tests
+Scanning dependencies of target lmsm_emulator_tests
+[ 78%] Building CXX object googletest/CMakeFiles/lmsm_emulator_tests.dir/lmsm.cpp.o
+[ 82%] Linking CXX executable lmsm_emulator_tests
+[ 82%] Built target lmsm_emulator_tests
+[ 91%] Built target gmock
 [100%] Built target gmock_main
