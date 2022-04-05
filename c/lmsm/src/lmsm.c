@@ -145,11 +145,13 @@ void lmsm_delete_stack(lmsm_stack *current) {
 
 void lmsm_init(lmsm *the_machine) {
     the_machine->accumulator->value = 0;
+    the_machine->accumulator->next = NULL;
     the_machine->status = STATUS_READY;
     the_machine->error_code = ERROR_NONE;
     the_machine->program_counter = 0;
     the_machine->current_instruction = 0;
     the_machine->call_stack->value = 0;
+    the_machine->call_stack->next = NULL;
     memset(the_machine->output_buffer, 0, sizeof(char) * 1000);
     memset(the_machine->memory, 0, sizeof(int) * 100);
 }

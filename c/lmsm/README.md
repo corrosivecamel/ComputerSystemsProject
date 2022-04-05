@@ -157,3 +157,42 @@ The emulator will have the following functionality:
 You have been provided with a test suite to assist you in your quest.
 
 Good luck!
+
+# IDE Setup
+
+This project, unlike previous years projects, should be doable on any operating system.  Here are the details for each:
+
+## Linux
+
+It should all just work.  You need to install CLion and maybe cmake, depending on your distro.
+
+## Windows 
+
+(Thanks to Luke Simonson!)
+
+1. Download and install CLion from  jetbrains.com (either the installer or the toolbox should work)
+2. Download the Cygwin installer from https://www.cygwin.com/install.html
+3. Run the installer, selecting the "gcc-g++", "make" and "gdb" packages. You can search for them in the installer and select what version you would like to install from the dropdown. I used versions 11.2.0-1, 4.3-1, and 10.2-1 respectively.
+4. Once the installation is finished, open CLion and then open the project you want to work on (I opened the homework directory and lmsm directories separately so I didn't have to switch between CMakeLists.txt, I don't know if there is a better way to do that or not)
+5. Click File > Settings
+6. Under Toolchains, click on the "+" Icon and  select Cygwin to add it to your toolchains. Hit apply and then OK
+7. You can either move Cygwin up to the top of the toolchain list from the previous step  or go to File > Settings > Build, Execution, Deployment > CMake and select "Cygwin" under the Toolchain dropdown. Hit apply and then OK.
+
+## OSX
+
+(Thanks to Patrick Tung!)
+
+1. Make sure you have at least 5.27GB of free disk space left on your Mac
+2. Before you start the CLion installation on macOS, make sure your machine meets the [hardware requirements](https://www.jetbrains.com/help/clion/installation-guide.html?keymap=secondary_macos#requirements), and the version of your macOS is 10.9.4+.
+3. Open macOS Terminal
+4. Install Xcode command line developer tools `xcode-select --install`
+5. When prompted to install command line developer tools, click the Install button
+6. Install Homebrew package manager `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+7. Install CLion through Homebrew `brew install clion`
+8. CLion should configure your toolchain automatically, make sure to navigate to Preferences | Build, Execution, Deployment | Toolchains in CLion and check the default toolchain to make sure there is no warning.
+9. Now that you have CLion installed and configured, Head to the CLion welcome screen.
+10. Click "Open" that is located near title bar
+11. In the pop-up Finder window, navigate to your repo and open it in CLion
+12. In CLion, navigate to the project you want to work on and right click to load the CMakeLists.txt file in that directory. Each time you switch to a different project, you need to load the corresponding CMakeLists.txt file in that directory. There might be a better way to do this that I'm not aware of
+13. Hit the green "run" button near title bar or press "control + r" and your project should execute successfully
+

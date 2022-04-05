@@ -168,9 +168,9 @@ int repl_load_file(lmsm *our_little_machine, char *filename) {
 
 void repl_start(lmsm *our_little_machine) {
     while (1) {
-        char * line;
+        size_t buffer_size = 2000;
+        char *line = calloc(sizeof(char), buffer_size);
         printf("lmsm > ");
-        size_t buffer_size = 0;
         if(getline(&line, &buffer_size, stdin) == -1){
             printf("goodbye");
             exit(EXIT_SUCCESS);  // We received an EOF
