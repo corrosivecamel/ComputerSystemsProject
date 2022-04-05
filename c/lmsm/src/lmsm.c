@@ -10,17 +10,25 @@
 //======================================================
 
 void lmsm_i_call(lmsm *our_little_machine) {
-    lmsm_stack *current = our_little_machine->call_stack;
-    lmsm_stack *next = current->next;
-    our_little_machine->call_stack->value = our_little_machine->program_counter;
-    our_little_machine->program_counter = our_little_machine->accumulator->value;
+    int to_counter = our_little_machine->accumulator->value;
+    int to_call_stack = our_little_machine->program_counter;
     lmsm_stack *current = our_little_machine->accumulator;
-    lmsm_stack *next = current->next;
-    our_little_machine->accumulator = next;
+    our_little_machine->accumulator = current->next;
     free(current);
+    our_little_machine->program_counter = to_counter;
+    lmsm_stack *next = our_little_machine->call_stack;
+    lmsm_stack *new = malloc(sizeof(lmsm_stack));
+    new->next = next;
+    new->value = to_call_stack;
+    our_little_machine->call_stack = new;
 }
 
-void lmsm_i_return(lmsm *our_little_machine) {
+void lmsm_i_return(lmsm *our_little_machine) {//call stack value to prog counter+ call_stack pop
+    lmsm_stack *current = our_little_machine->call_stack;
+    lmsm_stack *next = current->next;
+    our_little_machine->program_counter = our_little_machine->call_stack->value;
+    our_little_machine->call_stack = next;
+    free(current);
 }
 
 void lmsm_i_push(lmsm *our_little_machine) {
@@ -173,6 +181,7 @@ void lmsm_i_out(lmsm *our_little_machine) {
 }
 
 void lmsm_i_inp(lmsm *our_little_machine) {
+
 }
 
 void lmsm_i_load(lmsm *our_little_machine, int location) {
