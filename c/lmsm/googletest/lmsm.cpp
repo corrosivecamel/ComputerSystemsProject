@@ -171,6 +171,7 @@ TEST(lmsm_machine_suite,test_dup_instruction_duplicates_top_of_stack){
     the_machine->accumulator->value = 10;
     lmsm_exec_instruction(the_machine, 922); // SDUP
     ASSERT_EQ(the_machine->accumulator->value, 10);
+    ASSERT_FALSE(the_machine->accumulator->next == NULL);
     ASSERT_EQ(the_machine->accumulator->next->value, 10);
     lmsm_delete(the_machine);
 }
