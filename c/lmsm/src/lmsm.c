@@ -186,14 +186,6 @@ void lmsm_i_out(lmsm *our_little_machine) {//prints accumulator to output
     sprintf(buff, "%d", our_little_machine->accumulator->value);
     strcat(buff, " ");
     strcat(our_little_machine->output_buffer,buff);
-    //use strncat()
-    //int sprintf(our_little_machine->output_buffer, our_little_machine->accumulator->value, 5);
-    //appends 2nd element onto the end of first element for only n characters
-    //questions: 1)Which cmake do I use to build the project (working on windows version)
-    //           2)How do I use strncat() to build this char_buffer output?
-    //           3) Is that the correct way to use the output buffer that way?
-    //           4)
-
 }
 
 void lmsm_i_inp(lmsm *our_little_machine) {
@@ -263,9 +255,12 @@ void lmsm_cap_accumulator_value(lmsm *our_little_machine){
 
 void lmsm_step(lmsm *our_little_machine) {
     int current_inst = our_little_machine->memory[our_little_machine->program_counter];
-    our_little_machine->current_instruction = current_inst;
-    our_little_machine->program_counter++;
-    lmsm_exec_instruction(our_little_machine,current_inst);
+    if(our_little_machine->status != STATUS_HALTED){
+        our_little_machine->current_instruction = current_inst;
+        our_little_machine->program_counter++;
+        lmsm_exec_instruction(our_little_machine,current_inst);
+    }
+
 }
 /*
 void lmsm_step(lmsm *our_little_machine) {
