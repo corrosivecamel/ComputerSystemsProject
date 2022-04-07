@@ -9,6 +9,8 @@
 //  Instruction Implementation
 //======================================================
 
+typedef struct our_little_machine our_little_machine;
+
 void lmsm_i_call(lmsm *our_little_machine) {
     int to_counter = our_little_machine->accumulator->value;
     int to_call_stack = our_little_machine->program_counter;
@@ -31,30 +33,11 @@ void lmsm_i_return(lmsm *our_little_machine) {//call stack value to prog counter
     free(current);
 }
 
-void lmsm_i_spush(lmsm *our_little_machine) {
+void lmsm_i_push(lmsm *our_little_machine) {
     lmsm_stack *next = our_little_machine->accumulator;
     lmsm_stack *new = malloc(sizeof(lmsm_stack));
     new->value = 0;
     new->next = next;
-    our_little_machine->accumulator = new;
-}
-
-void lmsm_i_spop(lmsm *our_little_machine) {
-    if(!check_stack(our_little_machine)) {
-        our_little_machine->error_code = ERROR_EMPTY_STACK;
-        return;
-    }
-    lmsm_stack *current = our_little_machine->accumulator;
-    lmsm_stack *next = current->next;
-    our_little_machine->accumulator = next;
-    free(current);
-}
-
-void lmsm_i_sdup(lmsm *our_little_machine) {
-    lmsm_stack *current = our_little_machine->accumulator;
-    lmsm_stack *new = malloc(sizeof(lmsm_stack()));
-    new->value = current->value;
-    new->next = current;
     our_little_machine->accumulator = new;
 }
 
@@ -73,6 +56,27 @@ int check_stack(lmsm *our_little_machine) {
     }
     return 1;
 }
+
+void lmsm_i_pop(lmsm *our_little_machine) {
+    if(!check_stack(our_little_machine)) {
+        our_little_machine->error_code = ERROR_EMPTY_STACK;
+        return;
+    }
+    lmsm_stack *current = our_little_machine->accumulator;
+    lmsm_stack *next = current->next;
+    our_little_machine->accumulator = next;
+    free(current);
+}
+
+void lmsm_i_dup(lmsm *our_little_machine) {
+    lmsm_stack *current = our_little_machine->accumulator;
+    lmsm_stack *new = malloc(sizeof(lmsm_stack()));
+    new->value = current->value;
+    new->next = current;
+    our_little_machine->accumulator = new;
+}
+
+
 
 void lmsm_i_sadd(lmsm *our_little_machine) {
     if (!check_stack(our_little_machine)) {
@@ -176,18 +180,23 @@ void lmsm_i_sdiv(lmsm *our_little_machine) {
     free(next);
 }
 
-void lmsm_i_out(lmsm *our_little_machine) {
-    char accumulator_val [5];
+void lmsm_i_out(lmsm *our_little_machine) {//prints accumulator to output
+    //takes value of accumulator and concatenates it to the char[1000] output buffer
+    char buff[5];
+    sprintf(buff, "%d", our_little_machine->accumulator->value);
+    strcat(buff, " ");
+    strcat(our_little_machine->output_buffer,buff);
+    //use strncat()
+    //int sprintf(our_little_machine->output_buffer, our_little_machine->accumulator->value, 5);
+    //appends 2nd element onto the end of first element for only n characters
+    //questions: 1)Which cmake do I use to build the project (working on windows version)
+    //           2)How do I use strncat() to build this char_buffer output?
+    //           3) Is that the correct way to use the output buffer that way?
+    //           4)
 
 }
 
 void lmsm_i_inp(lmsm *our_little_machine) {
-    int x;
-    while(!(x >= -999 )&& !(x >= 999)) {
-        printf("enter a number -999 to 999");
-        scanf("%d", &x);
-    }
-    our_little_machine->accumulator->value= x;
 
 }
 
@@ -248,13 +257,11 @@ void lmsm_cap_accumulator_value(lmsm *our_little_machine){
 }
 
 void lmsm_step(lmsm *our_little_machine) {
-    if(our_little_machine->status == STATUS_HALTED){
-        printf("program is halted");
-        return;
-    }
     int current_inst = our_little_machine->memory[our_little_machine->program_counter];
     our_little_machine->current_instruction = current_inst;
-    our_little_machine->program_counter++;
+  //  if(our_little_machine->status != STATUS_HALTED){
+        our_little_machine->program_counter++;
+  //  }
     lmsm_exec_instruction(our_little_machine,current_inst);
 }
 
@@ -294,11 +301,11 @@ void lmsm_exec_instruction(lmsm *our_little_machine, int instruction) {
     } else if (instruction == 911) {
         lmsm_i_return(our_little_machine);
     } else if (instruction == 920) {
-        lmsm_i_spush(our_little_machine);
+        lmsm_i_push(our_little_machine);
     } else if (instruction == 921) {
-        lmsm_i_spop(our_little_machine);
+        lmsm_i_pop(our_little_machine);
     } else if (instruction == 922) {
-        lmsm_i_sdup(our_little_machine);
+        lmsm_i_dup(our_little_machine);
     } else if (instruction == 923) {
         lmsm_i_sadd(our_little_machine);
     } else if (instruction == 924) {
