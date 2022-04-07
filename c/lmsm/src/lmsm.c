@@ -33,7 +33,7 @@ void lmsm_i_return(lmsm *our_little_machine) {//call stack value to prog counter
     free(current);
 }
 
-void lmsm_i_push(lmsm *our_little_machine) {
+void lmsm_i_spush(lmsm *our_little_machine) {
     lmsm_stack *next = our_little_machine->accumulator;
     lmsm_stack *new = malloc(sizeof(lmsm_stack));
     new->value = 0;
@@ -57,7 +57,7 @@ int check_stack(lmsm *our_little_machine) {
     return 1;
 }
 
-void lmsm_i_pop(lmsm *our_little_machine) {
+void lmsm_i_spop(lmsm *our_little_machine) {
     if(!check_stack(our_little_machine)) {
         our_little_machine->error_code = ERROR_EMPTY_STACK;
         return;
@@ -68,7 +68,7 @@ void lmsm_i_pop(lmsm *our_little_machine) {
     free(current);
 }
 
-void lmsm_i_dup(lmsm *our_little_machine) {
+void lmsm_i_sdup(lmsm *our_little_machine) {
     lmsm_stack *current = our_little_machine->accumulator;
     lmsm_stack *new = malloc(sizeof(lmsm_stack()));
     new->value = current->value;
@@ -197,7 +197,12 @@ void lmsm_i_out(lmsm *our_little_machine) {//prints accumulator to output
 }
 
 void lmsm_i_inp(lmsm *our_little_machine) {
-
+    int x;
+    while(!(x >= -999 )&& !(x >= 999)) {
+        printf("enter a number -999 to 999");
+        scanf("%d", &x);
+    }
+    our_little_machine->accumulator->value= x;
 }
 
 void lmsm_i_load(lmsm *our_little_machine, int location) {
@@ -259,11 +264,20 @@ void lmsm_cap_accumulator_value(lmsm *our_little_machine){
 void lmsm_step(lmsm *our_little_machine) {
     int current_inst = our_little_machine->memory[our_little_machine->program_counter];
     our_little_machine->current_instruction = current_inst;
-  //  if(our_little_machine->status != STATUS_HALTED){
-        our_little_machine->program_counter++;
-  //  }
+    our_little_machine->program_counter++;
     lmsm_exec_instruction(our_little_machine,current_inst);
 }
+/*
+void lmsm_step(lmsm *our_little_machine) {
+    if(our_little_machine->status == STATUS_HALTED){
+        printf("program is halted");
+        return;
+    }
+    int current_inst = our_little_machine->memory[our_little_machine->program_counter];
+    our_little_machine->current_instruction = current_inst;
+    our_little_machine->program_counter++;
+    lmsm_exec_instruction(our_little_machine,current_inst);
+}*/
 
 //======================================================
 //  LMSM Implementation
@@ -301,11 +315,11 @@ void lmsm_exec_instruction(lmsm *our_little_machine, int instruction) {
     } else if (instruction == 911) {
         lmsm_i_return(our_little_machine);
     } else if (instruction == 920) {
-        lmsm_i_push(our_little_machine);
+        lmsm_i_spush(our_little_machine);
     } else if (instruction == 921) {
-        lmsm_i_pop(our_little_machine);
+        lmsm_i_spop(our_little_machine);
     } else if (instruction == 922) {
-        lmsm_i_dup(our_little_machine);
+        lmsm_i_sdup(our_little_machine);
     } else if (instruction == 923) {
         lmsm_i_sadd(our_little_machine);
     } else if (instruction == 924) {
