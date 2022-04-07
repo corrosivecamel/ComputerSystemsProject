@@ -47,7 +47,7 @@ Running main() from /home/carson/Projects/msu/csci-366-spring2022/grading/script
 [ RUN      ] lmsm_machine_suite.test_sadd_instruction_enters_error_state_if_not_enough_elts
 [       OK ] lmsm_machine_suite.test_sadd_instruction_enters_error_state_if_not_enough_elts (0 ms)
 [ RUN      ] lmsm_machine_suite.test_ssub_instruction_subtracts_the_values_on_the_stack
-[       OK ] lmsm_machine_suite.test_ssub_instruction_subtracts_the_values_on_the_stack (0 ms)
+[       OK ] lmsm_machine_suite.test_ssub_instruction_subtracts_the_values_on_the_stack (1 ms)
 [ RUN      ] lmsm_machine_suite.test_ssub_instruction_properly_caps_values
 [       OK ] lmsm_machine_suite.test_ssub_instruction_properly_caps_values (0 ms)
 [ RUN      ] lmsm_machine_suite.test_ssub_instruction_subtracts_the_values_on_the_stack_in_the_right_order
