@@ -83,5 +83,5 @@ Running main() from /home/carson/Projects/msu/csci-366-spring2022/grading/script
 [----------] 39 tests from lmsm_machine_suite (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 39 tests from 1 test suite ran. (0 ms total)
+[==========] 39 tests from 1 test suite ran. (1 ms total)
 [  PASSED  ] 39 tests.
