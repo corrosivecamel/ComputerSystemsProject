@@ -260,19 +260,7 @@ void lmsm_step(lmsm *our_little_machine) {
         our_little_machine->program_counter++;
         lmsm_exec_instruction(our_little_machine,current_inst);
     }
-
 }
-/*
-void lmsm_step(lmsm *our_little_machine) {
-    if(our_little_machine->status == STATUS_HALTED){
-        printf("program is halted");
-        return;
-    }
-    int current_inst = our_little_machine->memory[our_little_machine->program_counter];
-    our_little_machine->current_instruction = current_inst;
-    our_little_machine->program_counter++;
-    lmsm_exec_instruction(our_little_machine,current_inst);
-}*/
 
 //======================================================
 //  LMSM Implementation
