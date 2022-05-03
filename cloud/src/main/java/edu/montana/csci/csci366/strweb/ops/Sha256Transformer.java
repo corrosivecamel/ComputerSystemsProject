@@ -16,7 +16,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class Sha256Transformer {
     String[] _lines;
     ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
-
     public Sha256Transformer(String strings) {
         _lines = strings.split("\n");
     }
@@ -51,6 +50,7 @@ public class Sha256Transformer {
                 digest = MessageDigest.getInstance("SHA-256");
                 byte[] encodedhash = digest.digest(originalString.getBytes(StandardCharsets.UTF_8));
                 _lines[index] = bytesToHex(encodedhash);
+                latch.countDown();
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }
