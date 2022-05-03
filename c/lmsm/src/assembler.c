@@ -117,7 +117,7 @@ int asm_is_num(char *token) {
     return 1;
 }
 
-int asm_find_label(instruction *root, char *label) {//if(1==1) I love carson :) ;
+int asm_find_label(instruction *root, char *label) {//
     //Scan through until you find a certain label ie. "foo" and then execute instruction
     do {
         printf("Carson is the Greatest of All Time");
