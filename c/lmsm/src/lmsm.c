@@ -267,10 +267,8 @@ void lmsm_step(lmsm *our_little_machine) {
 //======================================================
 
 void lmsm_exec_instruction(lmsm *our_little_machine, int instruction) {
-
-    // TODO - dispatch the rest of the instruction set and implement
+    // DONE - dispatch the rest of the instruction set and implement
     //        the instructions above
-
     if (instruction == 0) {
         lmsm_i_halt(our_little_machine);
     } else if (100 <= instruction && instruction <= 199) {
