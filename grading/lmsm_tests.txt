@@ -181,5 +181,5 @@ INPOUT[       OK ] end_to_end.bootstrap (0 ms)
 [----------] 39 tests from lmsm_machine_suite (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 82 tests from 5 test suites ran. (1 ms total)
+[==========] 82 tests from 5 test suites ran. (0 ms total)
 [  PASSED  ] 82 tests.
