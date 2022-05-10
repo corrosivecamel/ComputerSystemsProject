@@ -28,6 +28,7 @@ public class StringWeb {
     //====================================================================
 
     private void run() throws IOException {
+        //Creates a new server socket under the integer _port (8000)
         ServerSocket socket = new ServerSocket(_port);
         LOGGER.info("Listening on http://localhost:" + _port);
         while (true) {
@@ -50,6 +51,8 @@ public class StringWeb {
             StringBuilder response = new StringBuilder();
             try {
                 // Determine request type & path
+                // we want to parse http headers by looping through
+                //GET our headers using http1.1
                 String requestInfo = inputReader.readLine();
                 LOGGER.info("Request Info: " + requestInfo);
                 String[] requestInfoArr = requestInfo.split(" ");
@@ -64,32 +67,39 @@ public class StringWeb {
                     String line;
                     do{
                         line = inputReader.readLine();
+                        //split our line if its not empty
                         if(!line.isEmpty()){
+                        //split for parsing on ":"
                             String[] split = line.split(":",2);
-//                            System.out.println(split[0]);
-//                            System.out.println(split[1]);
+                            //here we put values of split 0 and 1 into hashmap. 1 gets rid of empty space
                             headers.put(split[0],split[1].substring(1));
                         }
 
-                    }while(!line.isEmpty());
+                    }while(!line.isEmpty());//parsing while not empty to get the whole thing
                     LOGGER.info("Headers : " + headers);
 
                     String strings = "";
                     // TODO - parse request body
                     if("POST".equals(method)){
                         Map<String, String> parameters = new HashMap<>();
+                        //There will be a header here if there is a body
                         if(headers.containsKey("Content-Length")){
+                            //returns length in bytes
                             int length = Integer.parseInt((headers.get("Content-Length")));
+                            //get the elements from body
                             char[] buffer = new char[length];
+                            //read into buffer
                             inputReader.read(buffer, 0, length);
                             String strBody = new String(buffer);
-//                            System.out.println(strBody);
+                            //System.out.println(strBody);
+                            //split away a bunch of communist gobledygook
                             for (String param: strBody.split("&")){
                                 String[] split = param.split("=",2);
+                                //decode form url decoding
                                 String name = URLDecoder.decode(split[0], StandardCharsets.UTF_8);
                                 String value = URLDecoder.decode(split[1], StandardCharsets.UTF_8);
+                                //put our parsed values into hashmap
                                 parameters.put(name,value);
-
                             }
                         }
                         strings = parameters.get("strings");

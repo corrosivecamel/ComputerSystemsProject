@@ -151,10 +151,8 @@ void asm_parse_src(compilation_result *result, char *original_src) { // FOO ADD 
                 result->error = ASM_ERROR_UNKNOWN_INSTRUCTION;
                 return;
             }
-        }
-        //it is an instruction so capture instruction type
+        }//it is an instruction so capture instruction type
         type = token;
-        //else type = token;
         if (asm_instruction_requires_arg(type) == 1) {//check for if instruction requires passed argument ie 4**
             //needs to handle
             token = strtok(NULL, " \n");
