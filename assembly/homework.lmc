@@ -3,5 +3,27 @@
 ;; Paste the code below, along with the output
 
 ;; CODE   =====================================
+LOOP    LDA 99
+        ADD ONE
+        STA 99
+        OUT
+        LDA COUNT
+        SUB ONE
+        STA COUNT
+        BRZ ENDLOOP
+        BRA LOOP
+ENDLOOP HLT
+ONE     DAT 1
+COUNT   DAT 10
 
 ;; OUTPUT =====================================
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
