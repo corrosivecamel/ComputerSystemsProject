@@ -15,22 +15,28 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class Sha256Transformer {
     String[] _lines;
+    //fixed thread pool allows us to keep 10 threads grinding away instead of 1000 threads that would grind it to a halt
+    //The most optimal # threads has to do with the system.
     ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
     public Sha256Transformer(String strings) {
         _lines = strings.split("\n");
     }
 
     public String toSha256Hashes() {
+        //create latch to allow for paralellization and keep syncronized
         CountDownLatch latch = new CountDownLatch(_lines.length);
+        //execute for each new line
         for (int i = 0; i < _lines.length; i++) {
             Sha256Computer sha256Computer = new Sha256Computer(i, latch);
             executor.execute(sha256Computer);
         }
         try {
+            //threads should wait until everything is done processing (threads 0)
             latch.await();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        //join the array back into string to return
         return String.join("\n", _lines);
     }
 

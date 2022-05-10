@@ -14,17 +14,21 @@ public class LineLengthTransformer {
     }
 
     public String toLengths() {
+        //create our latch to allow for paralellization
         CountDownLatch latch = new CountDownLatch(_lines.length);
+
         for (int i = 0; i < _lines.length; i++){
+            //create new lineLengthCalculator instance with created latch
             LineLengthCalculator lineLengthCalculator = new LineLengthCalculator(i, latch);
+            //create new thread assigned to linelengthcalculator as well as start
             new Thread(lineLengthCalculator).start();
         }
-        try{
+        try{//wait for thread to count down to zero
             latch.await();
-        }catch(InterruptedException e){
+        }catch(InterruptedException e){//exception for if the thread gets interrupted
             throw new RuntimeException(e);
         }
-        return String.join("\n",_lines);
+        return String.join("\n",_lines);//join our array of strings
         //TODO - this method should create a series of Runnables and use Threads to do all
         //       line lengths in parallel
     }
